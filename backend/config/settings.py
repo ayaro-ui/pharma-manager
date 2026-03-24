@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     # Third party
     'rest_framework',
     'drf_spectacular',
+    'corsheaders',        # ← AJOUT CORS
     # Local apps
     'categories',
     'medicaments',
@@ -24,6 +25,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # ← AJOUT CORS - doit être EN PREMIER
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -90,3 +92,8 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CORS - Autorise le frontend React à communiquer avec Django
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]

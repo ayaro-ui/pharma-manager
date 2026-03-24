@@ -5,13 +5,41 @@ from .serializers import CategorieSerializer
 
 
 @extend_schema_view(
-    list=extend_schema(summary='Liste des catégories', tags=['Catégories']),
-    create=extend_schema(summary='Créer une catégorie', tags=['Catégories']),
-    retrieve=extend_schema(summary='Détail une catégorie', tags=['Catégories']),
-    update=extend_schema(summary='Modifier une catégorie', tags=['Catégories']),
-    destroy=extend_schema(summary='Supprimer une catégorie', tags=['Catégories']),
+    list=extend_schema(
+        summary='Liste des catégories',
+        tags=['Catégories'],
+        responses={200: CategorieSerializer(many=True)}
+    ),
+    create=extend_schema(
+        summary='Créer une catégorie',
+        tags=['Catégories'],
+        responses={201: CategorieSerializer}
+    ),
+    retrieve=extend_schema(
+        summary='Détail d\'une catégorie',
+        tags=['Catégories'],
+        responses={200: CategorieSerializer}
+    ),
+    update=extend_schema(
+        summary='Modifier une catégorie',
+        tags=['Catégories'],
+        responses={200: CategorieSerializer}
+    ),
+    partial_update=extend_schema(
+        summary='Modifier partiellement une catégorie',
+        tags=['Catégories'],
+        responses={200: CategorieSerializer}
+    ),
+    destroy=extend_schema(
+        summary='Supprimer une catégorie',
+        tags=['Catégories'],
+    ),
 )
 class CategorieViewSet(viewsets.ModelViewSet):
-    """ViewSet CRUD pour les catégories de médicaments."""
+    """
+    ViewSet CRUD complet pour les catégories de médicaments.
+
+    Chaque médicament appartient à une catégorie.
+    """
     queryset = Categorie.objects.all()
     serializer_class = CategorieSerializer
